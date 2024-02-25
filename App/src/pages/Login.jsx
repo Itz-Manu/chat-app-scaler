@@ -1,23 +1,42 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import Button from '../layout/Button'
-import Input from '../layout/Input'
+import Button from '../components/layout/Button'
+import Input from '../components/layout/Input'
 import { set, useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
+import { loginRoute } from '../utils/APIRoutes'
+import axios from 'axios'
 export default function Login() {
 
-    const [user , setUser] = useState(null)
     const { register, handleSubmit } = useForm();
     const navigate = useNavigate();
 
-    function login (data) {
+    async function login(data) {
         console.log(data);
-        if(data){
-            setUser(data)
-            navigate('/home');
-        }else{
-            alert("Incorrect Detailes")
+        if (data) {
+            console.log(data);
+            console.log(loginRoute);
+            try {
+                const response = await axios.post(loginRoute, data);
+                const userData = response.data;
+                toast.success('Login Successfully!!!');
+                localStorage.setItem('chat-user', JSON.stringify(userData));
+                console.log(userData);
+                console.log(response);
+                navigate('/home');
+            } catch (error) {
+                console.error("Error occurred:", error);
+                toast.error("Invalid Email or Password!!!");
+            }
         }
     }
+
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem('chat-user'));
+        if (user) {
+            navigate('/home');
+        }
+    }, []);
 
     return (
         <div className="flex items-center min-h-screen px-4">
@@ -28,12 +47,12 @@ export default function Login() {
                 </div>
                 <form onSubmit={handleSubmit(login)} className="space-y-4">
                     <div className="space-y-2">
-                        <Input 
-                            label={"Email"} 
-                            id="email" 
-                            placeholder="Enter Email..." 
-                            type="email" 
-                            {...register('email', { 
+                        <Input
+                            label={"Email"}
+                            id="email"
+                            placeholder="Enter Email..."
+                            type="email"
+                            {...register('email', {
                                 required: true,
                                 validate: {
                                     email: (value) => value.includes('@') || 'Invalid email'
@@ -41,7 +60,7 @@ export default function Login() {
                             })}
                         />
 
-                        <Input label={"Password"} id="password" type="password" placeholder='Password' {...register('password', { required: true })}/>
+                        <Input label={"Password"} id="password" type="password" placeholder='Password' {...register('password', { required: true })} />
                     </div>
                     <div className="flex items-center space-x-2">
                         <input type='checkbox' id="remember-me" />

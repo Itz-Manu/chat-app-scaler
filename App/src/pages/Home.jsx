@@ -22,7 +22,7 @@ export default function Home() {
           </div>
           <img
             alt="Hero"
-            className="aspect-video overflow-hidden rounded-xl object-bottom lg:order-last lg:aspect-square min-[300px]:h-[50vh] min-[600px]:h-[70vh]"
+            className="aspect-video overflow-hidden rounded-xl object-bottom lg:order-last lg:aspect-square min-[300px]:h-[50vh] min-[600px]:h-[30rem]"
             height="275"
             src="./Hero-7.webp"
             width="600"

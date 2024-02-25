@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import Button from './Button';
 
@@ -9,10 +9,17 @@ export default function Navbar() {
     // const dispatch = useDispatch();
 
     const [status, setStatus] = React.useState(false);
+   
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem('chat-user'));
+        if(user){
+            setStatus(true);
+        }
+    }, [status]);
 
     function logouthandler() {
-        // dispatch(logout());
         setStatus(prev => !prev);
+        localStorage.removeItem('chat-user');
     }
 
 
@@ -29,8 +36,8 @@ export default function Navbar() {
                             <div className="space-x-4">
                                <ul className='flex gap-10 font-semibold mt-1.5'>
                                 <NavLink to={'/home'}><li className='hover:text-gray-500'>Home</li></NavLink>
-                                <li className='hover:text-gray-500'>About</li>
-                                <li className='hover:text-gray-500'>Contact</li>
+                                <NavLink to={'/avatar'}><li className='hover:text-gray-500'>About</li></NavLink>
+                                <NavLink to={'/chats'}><li className='hover:text-gray-500'>Contact</li></NavLink>
                                </ul>
                             </div>
                             <div>

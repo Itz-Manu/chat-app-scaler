@@ -2,8 +2,11 @@ import React from 'react'
 import { Route, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
 import App from '../App';
 import Home from '../pages/Home';
-import Login from '../components/regestration/Login';
-import Signup from '../components/regestration/Signup';
+import Login from '../pages/Login';
+import Signup from '../pages/Signup';
+import Error from '../pages/Error';
+import SetAvatar from '../pages/setAvatar';
+import Chats from '../pages/Chats';
 
 
 
@@ -16,6 +19,8 @@ const Router = createBrowserRouter(
             <Route path='/home' element={<Home />} />
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<Signup />} />
+            <Route path='/avatar' element={<SetAvatar/>} />   
+            <Route path='/chats' element={<Chats />} />                                 
             
             <Route path='*' element={<Error/>} />                                       {/* * represent the 404 page */}                            
         </Route>

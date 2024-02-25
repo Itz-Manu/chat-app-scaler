@@ -1,17 +1,49 @@
-import React from 'react'
-import Input from '../layout/Input'
-import Button from '../layout/Button'
+import React, { useEffect } from 'react'
+import Input from '../components/layout/Input'
+import Button from '../components/layout/Button'
 import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form';
+import axios from 'axios';
+import toast from 'react-hot-toast';
+import { registerRoute } from '../utils/APIRoutes';
 
 export default function Signup() {
 
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit } = useForm();           // React Hook Form
     const navigate = useNavigate();
-    function signup(data) {
-        console.log(data);
-        navigate('/home');
+
+
+    async function signup(data) {
+
+        if (data) {
+            console.log(data);
+            console.log(registerRoute);
+            try {
+                const response = await axios.post(registerRoute, data);
+                const userData = response.data.user;
+                toast.success('Account Created Successfully!!!');
+                localStorage.setItem('chat-user', JSON.stringify(userData));
+                console.log(userData);
+                navigate('/home');
+            } catch (error) {
+                console.error("Error occurred:", error);
+                toast.error("An error occurred while creating account");
+            }
+        }
+
+        if (data.checkbox === false) {
+            return alert('Please agree to the terms and conditions')
+        }
+
     }
+
+
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem('chat-user'));
+        if (user) {
+            navigate('/home');
+        }
+    }, []);
 
     return (
         <div className="flex items-center min-h-screen px-4">
@@ -23,11 +55,11 @@ export default function Signup() {
                 <form onSubmit={handleSubmit(signup)} className="space-y-4">
                     <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2">
-                            <Input  label={"Frist Name"}  id="first-name"  placeholder="Lee"  required  {...register('first-name', { required: true })}
+                            <Input label={"Frist Name"} id="firstname" placeholder="Lee" required  {...register('firstname', { required: true })}
                             />
                         </div>
                         <div className="space-y-2">
-                            <Input label={"Last Name"} id="last-name" placeholder="Robinson" required  {...register('last-name')}/>
+                            <Input label={"Last Name"} id="lastname" placeholder="Robinson" required  {...register('lastname')} />
                         </div>
                     </div>
                     <div className="space-y-2">
@@ -48,7 +80,7 @@ export default function Signup() {
                     </div>
 
                     <div className="flex items-center space-x-2 text-sm">
-                        <input type='checkbox' id="terms" {...register('checkbox',  { required: true })}/>
+                        <input type='checkbox' id="terms" {...register('checkbox', { required: true })} />
                         <p className="leading-none my-3" htmlFor="terms">
                             I agree to the <Link className="underline" href="#"> terms and conditions</Link>
                         </p>
