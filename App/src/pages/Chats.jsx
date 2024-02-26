@@ -17,7 +17,6 @@ export default function Chats() {
     const fetchData = async () => {
       if (!localStorage.getItem('chat-user')) {
         navigate('/login');
-        return;
       }
       const user = JSON.parse(localStorage.getItem('chat-user'));
       setCurrentUser(user.user);
@@ -61,7 +60,7 @@ export default function Chats() {
         {isLoading && currentChat === undefined ? (
           <Welcome currentUser={currentUser} />
         ) : (
-          <ChatContainer currentChat={currentChat} />
+          <ChatContainer currentChat={currentChat} currentUser={currentUser}/>
         )}
       </div>
       
