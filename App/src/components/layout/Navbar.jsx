@@ -32,12 +32,12 @@ export default function Navbar() {
                             <img src="./ChatLogo.png" alt="Logo" className='object-contain'/>
                         </div>
 
-                        <div className="hidden md:flex gap-5">
+                        <div className="hidden md:flex gap-10">
                             <div className="space-x-4">
                                <ul className='flex gap-10 font-semibold mt-1.5'>
                                 <NavLink to={'/home'}><li className='hover:text-gray-500'>Home</li></NavLink>
-                                <NavLink to={'/avatar'}><li className='hover:text-gray-500'>About</li></NavLink>
-                                <NavLink to={'/chats'}><li className='hover:text-gray-500'>Contact</li></NavLink>
+                                <NavLink to={'/avatar'}><li className='hover:text-gray-500'>Avatar</li></NavLink>
+                                <NavLink to={'/chats'}><li className='hover:text-gray-500'>Chats</li></NavLink>
                                </ul>
                             </div>
                             <div>

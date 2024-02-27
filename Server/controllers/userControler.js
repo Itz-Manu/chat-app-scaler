@@ -5,6 +5,7 @@ module.exports.register = async (req, res, next) => {
     console.log(req.body);
     try { 
         console.log("Inside the controller");
+        console.log(req.body);
         const { firstname, lastname, email, password } = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
         const emailCheck = await User.findOne({ email: email });
@@ -13,6 +14,8 @@ module.exports.register = async (req, res, next) => {
         
         const user = await User.create({ firstname, lastname, email, password: hashedPassword });
         delete user.password;
+
+        const avatar = user.avatar;
         
         const { password: _, ...userWithoutPassword } = user.toObject();
         res.status(201).json({ user: userWithoutPassword });

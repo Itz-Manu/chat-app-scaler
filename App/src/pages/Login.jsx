@@ -12,18 +12,13 @@ export default function Login() {
     const navigate = useNavigate();
 
     async function login(data) {
-        console.log(data);
         if (data) {
-            console.log(data);
-            console.log(loginRoute);
             try {
                 const response = await axios.post(loginRoute, data);
-                const userData = response.data;
+                const userData = response.data.user;
                 toast.success('Login Successfully!!!');
                 localStorage.setItem('chat-user', JSON.stringify(userData));
-                console.log(userData);
-                console.log(response);
-                navigate('/home');
+                navigate('/chats');
             } catch (error) {
                 console.error("Error occurred:", error);
                 toast.error("Invalid Email or Password!!!");

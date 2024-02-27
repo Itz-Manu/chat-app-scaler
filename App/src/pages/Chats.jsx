@@ -23,20 +23,23 @@ export default function Chats() {
         navigate('/login');
       }
       const user = JSON.parse(localStorage.getItem('chat-user'));
-      setCurrentUser(user.user);
+      if(user){
+      setCurrentUser(user);
       setIsLoading(true);
+      }
     };
 
     fetchData();
   }, [navigate]);
 
+  // Fetch Contacts frome DB
   useEffect(() => {
     const fetchContacts = async () => {
       if (currentUser) {
       
         try {
           const response = await axios.get(`${allUsersRoutes}/${currentUser._id}`);
-          
+          console.log(response) 
           setContacts(response.data);
         } catch (error) {
           console.error('Error fetching contacts:', error);
@@ -64,6 +67,8 @@ export default function Chats() {
   const handleChatChange = (chat) => {
     setCurrentChat(chat);
   };
+
+  console.log(currentUser)
 
   return (
     <div className="flex bg-slate-50 p-5 gap-5 h-[90lvh] rounded-lg mt-5">

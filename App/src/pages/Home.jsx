@@ -4,6 +4,11 @@ import Button from '../components/layout/Button'
 import Input from '../components/layout/Input'
 
 export default function Home() {
+
+  const user = JSON.parse(localStorage.getItem('chat-user'));
+
+
+
   return (
     <div>
       <section className="w-full py-6">
@@ -17,7 +22,7 @@ export default function Home() {
                 Connect with friends, share photos and videos, and stay connected anytime, anywhere.
               </p>
             </div>
-            <Link to={"/login"}><Button className='ml-5 px-5 py-3'>Get Started</Button></Link>
+            <Link to={user ? "/chats" : "/login"}><Button className='ml-5 px-5 py-3'>Get Started</Button></Link>
 
           </div>
           <img

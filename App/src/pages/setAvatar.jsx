@@ -52,20 +52,18 @@ export default function SetAvatar() {
         fetchData();
     };
 
-
+    
     // Set Avatar Btn                           //TODO: Problem is here in setting avatar (it is not sending id to controller)
     async function handleSetAvatar() {
         if (selectedAvatar === null) {
             return toast.error('Please select an avatar');
         } else {
             try {
-                const user = JSON.parse(localStorage.getItem('chat-user'));
-                console.log(user.user._id);
-                const response = await axios.post(`${setAvatarRoute}/${user.user._id}`, { image: selectedAvatar});
-                console.log(response);
-    
+                const user = JSON.parse(localStorage.getItem('chat-user'));         
+                const response = await axios.post(`${setAvatarRoute}/${user._id}`, { image: selectedAvatar});
+               
                 if (response.status === 201) {
-                    user.avatar = avatar[selectedAvatar];
+                    user.avatar = response.data.avatar;
                     user.isAvatar = true;
                     localStorage.setItem('chat-user', JSON.stringify(user));
                     toast.success('Avatar set successfully');

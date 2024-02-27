@@ -24,7 +24,7 @@ export default function Signup() {
                 toast.success('Account Created Successfully!!!');
                 localStorage.setItem('chat-user', JSON.stringify(userData));
                 console.log(userData);
-                navigate('/home');
+                navigate('/avatar');
             } catch (error) {
                 console.error("Error occurred:", error);
                 toast.error("An error occurred while creating account");
