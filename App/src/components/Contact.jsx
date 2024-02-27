@@ -7,11 +7,9 @@ export default function Contact({ contacts, currentUser, changeChat }) {
   const [currentUserImage, setCurrentUserImage] = useState(null);
   const [currentSelected, setCurrentSelected] = useState(null);
 
-  console.log(contacts);
-
   useEffect(() => {
     const fetchData = async () => {
-      console.log(currentUser);
+     
       if (currentUser) {
         setCurrentUserFristName(currentUser.firstname);
         setCurrentUserLastName(currentUser.lastname);
@@ -24,7 +22,6 @@ export default function Contact({ contacts, currentUser, changeChat }) {
   const changeCurrentChat = (index, contact) => {
     setCurrentSelected(index);
     changeChat(contact);
-    console.log(contact);
   }
 
   return (
