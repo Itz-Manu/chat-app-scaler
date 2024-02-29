@@ -24,9 +24,6 @@ export default function Contact({ contacts, currentUser, changeChat }) {
     changeChat(contact);
   }
 
-  console.log(contacts)
-  console.log(currentUser)
-
   return (
     <div>
       <h1 className='font-bold text-gray-600 uppercase text-'>Contacts</h1>

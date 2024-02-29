@@ -2,8 +2,6 @@ import React from 'react'
 
 export default function Welcome({ currentUser }) {
 
-  console.log(currentUser)
-
   return (
     <div>
       <div className='flex flex-col items-center p-3'>

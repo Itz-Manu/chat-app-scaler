@@ -39,10 +39,8 @@ export default function Chats() {
       
         try {
           const response = await axios.get(`${allUsersRoutes}/${currentUser._id}`);
-          console.log(response) 
           setContacts(response.data);
         } catch (error) {
-          console.error('Error fetching contacts:', error);
           toast.error('Error fetching contacts:');
           navigate('/login');
         }
@@ -67,8 +65,6 @@ export default function Chats() {
   const handleChatChange = (chat) => {
     setCurrentChat(chat);
   };
-
-  console.log(currentUser)
 
   return (
     <div className="flex bg-slate-50 p-5 gap-5 h-[90lvh] rounded-lg mt-5">

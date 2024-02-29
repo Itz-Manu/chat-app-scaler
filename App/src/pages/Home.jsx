@@ -7,8 +7,6 @@ export default function Home() {
 
   const user = JSON.parse(localStorage.getItem('chat-user'));
 
-
-
   return (
     <div>
       <section className="w-full py-6">

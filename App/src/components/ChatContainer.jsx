@@ -19,7 +19,6 @@ export default function ChatContainer({ currentChat, currentUser, socket }) {
             });
             setMessages(response.data);
         } catch (error) {
-            console.error('Error fetching messages:', error);
             toast.error('Error fetching messages:');
         }
     };

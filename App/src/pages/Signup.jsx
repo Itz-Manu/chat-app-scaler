@@ -16,14 +16,11 @@ export default function Signup() {
     async function signup(data) {
 
         if (data) {
-            console.log(data);
-            console.log(registerRoute);
             try {
                 const response = await axios.post(registerRoute, data);
                 const userData = response.data.user;
                 toast.success('Account Created Successfully!!!');
                 localStorage.setItem('chat-user', JSON.stringify(userData));
-                console.log(userData);
                 navigate('/avatar');
             } catch (error) {
                 console.error("Error occurred:", error);

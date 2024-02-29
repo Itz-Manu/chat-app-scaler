@@ -33,7 +33,7 @@ app.use("/api/messages", messagesRoute);
 
 // Implementing Sockets
 
-const io = socket(server,{
+const io = socket(server, {
     cors: {
         origin: 'http://localhost:5173',
         credentials: true
@@ -43,21 +43,15 @@ const io = socket(server,{
 global.onlineUsers = new Map();
 
 io.on('connection', (socket) => {
-    console.log('User connected:', socket.id);
-
     global.chatSocket = socket;
 
     socket.on('addUser', (userId) => {
-        console.log('User added:', userId);
         onlineUsers.set(userId, socket.id);
-        console.log('online User: ', onlineUsers);
     });
 
     socket.on('message-send', (message) => {
-        console.log('Message:', message);
         const { from, to, text } = message;
         const toSocketId = onlineUsers.get(to);
-        console.log('toSocketId:', toSocketId);
         if (toSocketId) {
             socket.to(toSocketId).emit('message-recieve', { text, from });
         }

@@ -1,11 +1,7 @@
 const User = require('../model/userModel');
 const bcrypt = require('bcrypt');
 module.exports.register = async (req, res, next) => {
-
-    console.log(req.body);
     try { 
-        console.log("Inside the controller");
-        console.log(req.body);
         const { firstname, lastname, email, password } = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
         const emailCheck = await User.findOne({ email: email });
@@ -28,9 +24,7 @@ module.exports.register = async (req, res, next) => {
 
 module.exports.login = async (req, res, next) => {
 
-    console.log(req.body);
     try { 
-        console.log("Inside the login controller");
         const { email, password } = req.body;
         const user = await User.findOne({ email: email });
         if (!user) return res.status(400).json({ message: 'Incorrect Email!!!'});
@@ -51,7 +45,6 @@ module.exports.login = async (req, res, next) => {
 
 module.exports.setAvatar = async (req, res, next) => {
     try {
-        console.log("Inside the setAvatar controller");
         const { id } = req.params;          // Extract the user ID from request parameters
         const { image } = req.body;         // Extract the image from request body
         const user = await User.findByIdAndUpdate(id, { avatar: image, isAvatar: true }, { new: true });
@@ -70,8 +63,6 @@ module.exports.setAvatar = async (req, res, next) => {
 
 module.exports.getAllUsers = async (req, res, next) => {
     try {
-        console.log("Inside the getAllUsers controller");
-        console.log(req.params.id);
         const users = await User.find({ _id: {$ne: req.params.id} }).select(["email", "firstname", "lastname", "avatar", "_id"]);       // { _id: {$ne: req.params.id} } it work as filter to get all users except the current user
         res.status(200).json(users);
     } catch (error) {
