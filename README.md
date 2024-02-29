@@ -3,6 +3,10 @@
 ## Description
 This is a simple chat application built using Node.js, React, Express, and MongoDB. Users can register, log in, and engage in real-time chat conversations.
 
+## Screenshots
+   ![Screenshot 2024-02-29 195150](https://github.com/Itz-Manu/chat-app-scaler/assets/142565220/f9823767-5678-495d-862d-5bc3d189ff67)
+
+
 ## Features 🚀
 - User registration and authentication
 - Real-time chat functionality
