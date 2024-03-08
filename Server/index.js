@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const userRoutes = require('./routes/userRoutes');
 const messagesRoute = require('./routes/messagesRoute');
 const socket = require('socket.io');
+const path = require('path');
 
 const app = express();
 require('dotenv').config();
@@ -28,6 +29,24 @@ connectToMongoDB();
 app.use('/api/auth', userRoutes);
 
 app.use("/api/messages", messagesRoute);
+
+
+// * --------->> Deployment Start <<-----------
+
+const __dirname1 = path.resolve();
+if (process.env.NODE_ENV === 'development') {
+    app.use(express.static(path.join(__dirname1, '/App/build')));
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname1, 'App', 'build', 'index.html'));
+    });
+} else {
+    app.get('/', (req, res) => {
+        res.send('API is running');
+    });
+}
+
+// * --------->> Deployment End <<-----------
+
 
 
 
