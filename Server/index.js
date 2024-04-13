@@ -54,7 +54,7 @@ if (process.env.NODE_ENV === 'development') {
 
 const io = socket(server, {
     cors: {
-        origin: 'https://vercel.com/itz-manus-projects/chat-app-scaler/5rUoELWbtfEhZ8xMdVHzawDCCQsu',
+        origin: 'https://chat-app-scaler.vercel.app/',
         credentials: true
     }
 });
